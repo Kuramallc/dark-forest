@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/ui/MinimapUI.gd" id="2"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
@@ -85,3 +86,15 @@ offset_bottom = 36
 horizontal_alignment = 2
 text = "Day 1  ·  Day"
 theme_override_font_sizes/font_size = 13
+
+[node name="MinimapUI" type="Control" parent="Root"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172
+offset_top = -192
+offset_right = -12
+offset_bottom = -12
+script = ExtResource("2")

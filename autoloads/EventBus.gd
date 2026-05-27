@@ -9,6 +9,8 @@ signal player_left_home
 # World / time
 signal day_changed(day_number: int)
 signal phase_changed(phase_name: String)
+# Emitted once after procedural generation finishes; minimap listens for this
+signal map_ready(tile_map: Dictionary, fog_tex: ImageTexture, player: Node2D)
 
 # Items / combat
 signal item_picked_up(item_id: String, quantity: int)

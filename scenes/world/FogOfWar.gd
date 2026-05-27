@@ -11,12 +11,12 @@ const MAP_TILES := 128        # must equal MapGenerator.MAP_RADIUS * 2
 const TILE_PX   := 64         # pixels per tile — must match World / MapGenerator
 const FOG_REVEAL_MULT := 1.6  # fog reveal radius = sight_radius * this
 
-var _player:     Node2D
-var _sprite:     Sprite2D
-var _mat:        ShaderMaterial
-var _fog_image:  Image
-var _fog_tex:    ImageTexture
-var _dirty:      bool = false
+var _player:    Node2D
+var _sprite:    Sprite2D
+var _mat:       ShaderMaterial
+var _fog_image: Image
+var fog_tex:    ImageTexture   # public — minimap shader reads this directly
+var _dirty:     bool = false
 
 # Cached last-reveal position to avoid redundant updates
 var _last_reveal_px := Vector2i(-9999, -9999)
@@ -24,12 +24,12 @@ var _last_reveal_px := Vector2i(-9999, -9999)
 func _ready() -> void:
 	_fog_image = Image.create(MAP_TILES, MAP_TILES, false, Image.FORMAT_R8)
 	_fog_image.fill(Color(0, 0, 0, 1))   # start fully hidden
-	_fog_tex = ImageTexture.create_from_image(_fog_image)
+	fog_tex = ImageTexture.create_from_image(_fog_image)
 
 	var shader := load("res://shaders/fog_of_war.gdshader") as Shader
 	_mat = ShaderMaterial.new()
 	_mat.shader = shader
-	_mat.set_shader_parameter("fog_tex",      _fog_tex)
+	_mat.set_shader_parameter("fog_tex",      fog_tex)
 	_mat.set_shader_parameter("player_uv",    Vector2(0.5, 0.5))
 	_mat.set_shader_parameter("vision_uv",    0.035)
 	_mat.set_shader_parameter("memory_alpha", 0.72)
@@ -67,7 +67,7 @@ func _process(_delta: float) -> void:
 		_reveal(px, reveal_tiles)
 
 	if _dirty:
-		_fog_tex.update(_fog_image)
+		fog_tex.update(_fog_image)
 		_dirty = false
 
 # ── Fog helpers ───────────────────────────────────────────────────────────────

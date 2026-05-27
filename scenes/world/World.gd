@@ -49,6 +49,13 @@ func _ready() -> void:
 	if torch:
 		torch.item_mask = 1
 
+	# 9. Notify minimap (and any other listeners) that the map is ready
+	#    Defer by one frame so all _ready() calls in the HUD finish first
+	call_deferred("_emit_map_ready", tile_map)
+
+func _emit_map_ready(tile_map: Dictionary) -> void:
+	EventBus.map_ready.emit(tile_map, fog.fog_tex, player)
+
 # ── Tileset (programmatic, no asset files needed) ────────────────────────────
 func _build_tileset() -> void:
 	var ts     := TileSet.new()
