@@ -13,7 +13,7 @@ config_version=5
 config/name="Dark Forest"
 config/description="A survival game — explore the mist-covered forest, gather resources, hunt, fight, and survive."
 run/main_scene="res://scenes/main/Main.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 
 [autoload]
 
