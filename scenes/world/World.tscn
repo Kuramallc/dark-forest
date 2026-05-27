@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/world/World.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/world/DayNightCycle.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/home/Home.tscn" id="4"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.50, 0.48, 0.42, 1)
+
+[node name="Ground" type="TileMapLayer" parent="."]
+z_index = -2
+
+[node name="Objects" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("3")]
+position = Vector2(0, 0)
+
+[node name="Home" parent="." instance=ExtResource("4")]
+position = Vector2(0, 0)
+
+[node name="DayNightCycle" type="Node" parent="."]
+script = ExtResource("2")
