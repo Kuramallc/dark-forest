@@ -31,11 +31,13 @@ var is_sprinting := false
 var _sprite: Polygon2D
 
 func _ready() -> void:
+	add_to_group("player")   # used by GroundItem, HomeZone, enemies etc.
 	_build_visual()
-	torch.texture       = _radial_gradient(Color(1.0, 0.85, 0.55, 1), Color(1.0, 0.85, 0.55, 0))
-	torch.texture_scale = sight_radius / 50.0
+	torch.texture        = _radial_gradient(Color(1.0, 0.85, 0.55, 1), Color(1.0, 0.85, 0.55, 0))
+	torch.texture_scale  = sight_radius / 50.0
 	torch.shadow_enabled = true
 	torch.shadow_filter  = 1
+	torch.item_mask      = 1   # only illuminates items with light_mask bit-1 set
 
 	EventBus.player_entered_home.connect(func() -> void: set_at_home(true))
 	EventBus.player_left_home.connect(func()    -> void: set_at_home(false))
